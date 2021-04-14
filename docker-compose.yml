@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:13.2-alpine
+    container_name: "fullthrottle-go-database"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=db_name
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=pass
+    # networks:
+    #   - fullstack
+    volumes:
+      - database_postgres:/var/lib/postgresql/data
+
+  pgadmin4:
+    image: dpage/pgadmin4:latest
+    container_name: "fullthrottle-go-pg4admin"
+    ports:
+      - "9001:80"
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=pass
+      - PGADMIN_DEFAULT_EMAIL=pawel@example.com
+    # networks:
+    #   - fullstack
+    volumes:
+      - pgadmin:/root/.pgadmin
+
+
+volumes:
+  database_postgres:
+  pgadmin:
